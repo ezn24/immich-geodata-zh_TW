@@ -118,8 +118,9 @@ def translate_cities500():
             longitude = str(row[5])  # 经度
 
             admin1_code = row[10]
-            if not admin1_code or f"{country_code}.{admin1_code}" not in admin_1_set:
-                continue
+            if country_code != "SG":
+                if not admin1_code or f"{country_code}.{admin1_code}" not in admin_1_set:
+                    continue
 
             translated_name = None
 
