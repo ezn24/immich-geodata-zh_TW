@@ -154,9 +154,16 @@ def translate_cities500():
                     # 处理香港区划名称,加上新界、九龙、香港岛前缀
                     if country_code == "HK":
                         location["admin_2"] = "香港"
-                        location["admin_3"] = (
-                            f"{HK_DISTRICTS_MAP[location['admin_3']]} {location['admin_3']}"
-                        )
+                        district = (location.get("admin_3") or "").strip()
+                        district_for_map = convert(district, "zh-cn") if district else ""
+                        region = HK_DISTRICTS_MAP.get(district_for_map)
+                        if region and district_for_map:
+                            location["admin_3"] = f"{region} {district_for_map}"
+                        elif district_for_map:
+                            location["admin_3"] = district_for_map
+                        else:
+                            # 有些香港数据无 admin_3，降级为“香港”避免 KeyError
+                            location["admin_3"] = location["admin_2"]
                     if country_code == "MO":
                         location["admin_2"] = "澳門"
                     res = convert(cn_pattern.format(**location), "zh-tw")
