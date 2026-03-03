@@ -27,11 +27,11 @@ alternate_name = load_alternate_name(
     os.path.join(alternate_name_folder, "alternateNamesV2.txt")
 )
 
-# 初始化 OpenCC 转换器，繁体转简体
+# 初始化 OpenCC 转换器
 converter_t2s = opencc.OpenCC("t2s")  # 繁体转简体
 converter_s2t = opencc.OpenCC("s2t")  # 简体转繁体
 
-country_code_map = {"MO": "澳门特别行政区", "HK": "香港特别行政区"}
+country_code_map = {"MO": "澳門", "HK": "香港"}
 
 admin_1_set = set()
 with open("./geoname_data/admin1CodesASCII.txt", "r", encoding="utf-8") as f:
@@ -130,10 +130,7 @@ def translate_cities500():
             ):
                 location = geodata[country_code][(longitude, latitude)]
                 if country_code in ["CN", "HK", "MO"]:
-                    if (
-                        not location["admin_2"]
-                        or location["admin_2"] == "中华人民共和国"
-                    ):
+                    if not location["admin_2"]:
                         continue
                     # 处理澳门区划名称, admin_2 直接用 admin_1
                     if country_code == "MO":
@@ -152,23 +149,35 @@ def translate_cities500():
                         location["admin_4"] = location["admin_3"]
                     if location["admin_2"].endswith("特别行政区"):
                         location["admin_2"] = location["admin_2"][:-5]
+                    if location["admin_2"].endswith("特別行政區"):
+                        location["admin_2"] = location["admin_2"][:-5]
                     # 处理香港区划名称,加上新界、九龙、香港岛前缀
                     if country_code == "HK":
-                        location["admin_3"] = (
-                            f"{HK_DISTRICTS_MAP[location['admin_3']]} {location['admin_3']}"
-                        )
-                    res = cn_pattern.format(**location)
+                        location["admin_2"] = "香港"
+                        district = (location.get("admin_3") or "").strip()
+                        district_for_map = convert(district, "zh-cn") if district else ""
+                        region = HK_DISTRICTS_MAP.get(district_for_map)
+                        if region and district_for_map:
+                            location["admin_3"] = f"{region} {district_for_map}"
+                        elif district_for_map:
+                            location["admin_3"] = district_for_map
+                        else:
+                            # 有些香港数据无 admin_3，降级为“香港”避免 KeyError
+                            location["admin_3"] = location["admin_2"]
+                    if country_code == "MO":
+                        location["admin_2"] = "澳門"
+                    res = convert(cn_pattern.format(**location), "zh-tw")
                 elif country_code in ["TW"]:
                     if not location["admin_2"]:
                         continue
-                    location["admin_4"] = convert(location["admin_3"], "zh-cn")
-                    location["admin_3"] = convert(location["admin_2"], "zh-cn")
-                    location["admin_2"] = convert(location["admin_1"], "zh-cn")
-                    location["admin_1"] = "台湾省"
-                    res = cn_pattern.format(**location)
+                    location["admin_4"] = convert(location["admin_3"], "zh-tw")
+                    location["admin_3"] = convert(location["admin_2"], "zh-tw")
+                    location["admin_2"] = convert(location["admin_1"], "zh-tw")
+                    location["admin_1"] = "臺灣"
+                    res = convert(cn_pattern.format(**location), "zh-tw")
                 else:
                     res = location["admin_2"]
-                    res = convert(res, "zh-cn")
+                    res = convert(res, "zh-tw")
 
                     # 处理同时存在简繁名字的场景，例如 	东京都/東京都
                     # 如果简化后都一样，就只取简化名
@@ -182,7 +191,7 @@ def translate_cities500():
 
             if translated_name is None and row[0] in alternate_name:
                 name = alternate_name[row[0]]
-                name = convert(name, "zh-cn")
+                name = convert(name, "zh-tw")
                 translated_name = name
 
             if translated_name is None:
@@ -196,9 +205,9 @@ def translate_cities500():
 
                 # 替换第二列内容，优先简体中文词，其次繁体中文词
                 if simplified_word:
-                    translated_name = simplified_word
+                    translated_name = convert(simplified_word, "zh-tw")
                 elif traditional_word:
-                    translated_name = convert(traditional_word, "zh-cn")
+                    translated_name = traditional_word
 
             if translated_name is not None:
                 row[1] = translated_name
@@ -233,7 +242,7 @@ def translate_admin1():
 
                     if code in alternate_name:
                         res = alternate_name[code]
-                        res = convert(res, "zh-cn")
+                        res = convert(res, "zh-tw")
 
                 if res:
                     row[1] = res
