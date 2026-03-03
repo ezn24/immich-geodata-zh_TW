@@ -10,7 +10,7 @@ geodata_name=${1:-geodata}
 
 echo "開始獲取最新的 $geodata_name.zip 文件..."
 
-LATEST_RELEASE_API="https://api.github.com/repos/ZingLix/immich-geodata-cn/releases/latest"
+LATEST_RELEASE_API="https://api.github.com/repos/ezn24/immich-geodata-zh_TW/releases/latest"
 
 # 獲取下載連結 (兼容群暉 grep)
 response=$(curl -fsSL $LATEST_RELEASE_API)
