@@ -41,7 +41,7 @@ jobs:
           artifacts: "output/*"
           draft: false
           generateReleaseNotes: false
-          commit: main
+          commit: zh_TW
           tag: release-${{ env.TODAY }}
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
