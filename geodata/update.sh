@@ -9,10 +9,10 @@ cd "$(dirname "$0")"
 script_name=$(basename "$0")
 geodata_name=${1:-geodata}
 
-echo "开始获取 ZingLix/immich-geodata-cn 仓库最新的 $geodata_name.zip 文件..."
+echo "开始获取 ezn24/immich-geodata-zh_TW 仓库最新的 $geodata_name.zip 文件..."
 
 # 获取最新 release 的 API URL
-LATEST_RELEASE_API="https://api.github.com/repos/ZingLix/immich-geodata-cn/releases/latest"
+LATEST_RELEASE_API="https://api.github.com/repos/ezn24/immich-geodata-zh_TW/releases/latest"
 
 echo "调用 GitHub API 获取最新 release 信息..."
 response=$(curl -s $LATEST_RELEASE_API)
