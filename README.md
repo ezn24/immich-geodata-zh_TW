@@ -95,6 +95,9 @@ volumes:
 # 下载脚本
 curl -o update.sh https://raw.githubusercontent.com/ezn24/immich-geodata-zh_TW/refs/heads/main/geodata/update.sh
 
+# 下載脚本（群暉適用）
+curl -o update.sh https://raw.githubusercontent.com/ezn24/immich-geodata-zh_TW/refs/heads/main/geodata/update_for_Synology.sh
+
 # 运行更新脚本，参数为你需要的版本，例如 geodata_admin_2
 bash update.sh geodata_admin_2
 ```
