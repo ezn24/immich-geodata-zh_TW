@@ -59,7 +59,7 @@ Immich 会根据照片的经纬度信息，转换成 **国家、省份、城市*
 - 将 cities500.txt 和 admin1CodesASCII.txt 中的名称进行汉化
 - 将 [node-i18n-iso-countries](https://github.com/michaelwittig/node-i18n-iso-countries) 库中的数据进行汉化
 
-[Immich 代码](https://github.com/immich-app/immich/blob/1311189fab958bea2177a92e1cc1b7ebb1822bd8/server/src/repositories/map.repository.ts#L131) 中将国家码转换固定写死了转换成 `'en'`，因此只能把 [node-i18n-iso-countries](https://github.com/michaelwittig/node-i18n-iso-countries) 库中的 `en.json` 修改为 `zh.json` 中的中文数据了，修改后的数据 [在这](https://github.com/ZingLix/immich-geodata-cn/blob/main/i18n-iso-countries/langs/en.json)。
+[Immich 代码](https://github.com/immich-app/immich/blob/1311189fab958bea2177a92e1cc1b7ebb1822bd8/server/src/repositories/map.repository.ts#L131) 中将国家码转换固定写死了转换成 `'en'`，因此只能把 [node-i18n-iso-countries](https://github.com/michaelwittig/node-i18n-iso-countries) 库中的 `en.json` 修改为 `zh-CN.json` 中的中文数据了，修改后的数据 [在这](https://github.com/ZingLix/immich-geodata-cn/blob/main/i18n-iso-countries/langs/en.json)。
 
 ## 汉化地理数据
 

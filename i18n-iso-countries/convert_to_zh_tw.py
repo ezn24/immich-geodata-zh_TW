@@ -20,7 +20,7 @@ def transform(data: dict) -> dict:
     return {"locale": data["locale"], "countries": countries}
 
 
-for filename in ["zh.json", "en.json"]:
+for filename in ["zh-CN.json", "en.json"]:
     path = LANGS / filename
     data = json.loads(path.read_text(encoding="utf-8"))
     output = transform(data)
