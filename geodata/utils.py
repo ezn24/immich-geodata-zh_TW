@@ -60,7 +60,7 @@ def ensure_folder_exists(file_path):
 
 def load_alternate_name(file_path):
     # 定义语言优先级列表，索引越小优先级越高
-    priority = ["zh", "zh-Hans", "zh-SG", "zh-Hant", "zh-HK"]
+    priority = ["zh-Hant", "zh-HK", "zh", "zh-Hans", "zh-SG"]
     # mapping 存储：数字 -> (名称, 优先级, id, prefer)
     mapping = {}
     count = 0
