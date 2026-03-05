@@ -93,10 +93,10 @@ volumes:
 # cd geodata  在 geodata 目录下进行操作
 
 # 下载脚本
-curl -o update.sh https://raw.githubusercontent.com/ezn24/immich-geodata-zh_TW/refs/heads/main/geodata/update.sh
+curl -o update.sh https://raw.githubusercontent.com/ezn24/immich-geodata-zh_TW/refs/heads/zh_TW/geodata/update.sh
 
 # 下載脚本（群暉適用）
-curl -o update.sh https://raw.githubusercontent.com/ezn24/immich-geodata-zh_TW/refs/heads/main/geodata/update_for_Synology.sh
+curl -o update.sh https://raw.githubusercontent.com/ezn24/immich-geodata-zh_TW/refs/heads/zh_TW/geodata/update_for_Synology.sh
 
 # 运行更新脚本，参数为你需要的版本，例如 geodata_admin_2
 bash update.sh geodata_admin_2
@@ -110,7 +110,7 @@ bash update.sh geodata_admin_2
 
 # 如何生成数据
 
-关于如何运作的，或者是想要自定义数据的，可以到 [此处](https://github.com/ezn24/immich-geodata-zh_TW/tree/main/geodata) 查看。
+关于如何运作的，或者是想要自定义数据的，可以到 [此处](https://github.com/ezn24/immich-geodata-zh_TW/tree/zh_TW/geodata) 查看。
 
 # License
 
