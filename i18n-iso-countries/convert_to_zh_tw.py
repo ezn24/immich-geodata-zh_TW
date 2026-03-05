@@ -11,16 +11,11 @@ def transform(data: dict) -> dict:
     for code, name in data["countries"].items():
         countries[code] = convert(name, "zh-tw")
 
-    # 覆写特定地区命名，避免出现“中国香港/中国澳门/中国台湾”这类表述
-    countries["TW"] = "臺灣"
-    countries["HK"] = "香港"
-    countries["MO"] = "澳門"
-    countries["CN"] = "中國"
 
     return {"locale": data["locale"], "countries": countries}
 
 
-for filename in ["zh.json", "en.json"]:
+for filename in ["zh-CN.json", "en.json"]:
     path = LANGS / filename
     data = json.loads(path.read_text(encoding="utf-8"))
     output = transform(data)
